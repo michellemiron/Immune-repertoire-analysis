@@ -2,6 +2,8 @@
 rm(list=ls())
 options(stringsAsFactors=FALSE)
 
+FilePath <- "/Users/michellemiron/Dropbox (CUMC)/For Michelle/D233/Pooled 1+2/D233-BM-CD4-TEM-67-6ng.txt"
+
 ##TO DO
   #Add Gini coefficient (Gini coefficient, commonly used as a measure of income inequality in economics, was used to assess the inequality of clonotype distribution within a repertoire, source:Thomas PG, Handel A, Doherty PC, La Gruta NL. Ecological analysis of antigen-specific CTL repertoires defines the relationship between naive and immune T-cell populations. Proc Natl Acad Sci U S A. 2013;110:1839-44. doi: 10.1073/pnas.1222149110.)
     
