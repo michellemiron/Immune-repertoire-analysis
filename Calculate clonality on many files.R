@@ -9,9 +9,10 @@
   nc = ncol(data)
   for (i in 1:nc) {
     data[,i] = data[,i] / sum(data[,i])
-  }
+}
   return(data)
 }
+          
           shannon.entropy <- function(p){
   if (min(p) < 0 || sum(p) <= 0)
     return(NA)
@@ -23,7 +24,8 @@
   l = length(x)
   entropy = shannon.entropy(p)
   maxentropy = -log2(1/l)
-  return(signif(1 - entropy / maxentropy, 3)) }
+  return(signif(1 - entropy / maxentropy, 3)) 
+}
           
 # Input your path to files here:
            File_path <- "/Users/michellemiron/Desktop/TCR test data/Pooled 1 + 2/"
@@ -45,9 +47,9 @@
 # Get a list of all files in the directory    
           files <- list.files(path=File_path, pattern="*.txt")
           file <- files[[1]]
+          
 # Apply function to all files in a given directory
           data_compiled_list <- lapply (files, outputclonality_data)
           data_compiled_table <- my.matrix<-do.call("rbind", data_compiled_list)
           file_output <- "/Users/mm4556/Desktop/Master/MasterClonalityD299.csv"
           write.csv(data_compiled_table, file=file_output)
-  
