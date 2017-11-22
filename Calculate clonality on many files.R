@@ -28,7 +28,7 @@
 }
           
 # Input your path to files here:
-           File_path <- "/Users/michellemiron/Desktop/TCR test data/Pooled 1 + 2/"
+           File_path <- "/Users/michellemiron/Dropbox/For Michelle/D233/Pooled All Reps/Raw Data/"
     
 
 # Function to calculate clonality on a given file
@@ -51,5 +51,5 @@
 # Apply function to all files in a given directory
           data_compiled_list <- lapply (files, outputclonality_data)
           data_compiled_table <- my.matrix<-do.call("rbind", data_compiled_list)
-          file_output <- "/Users/mm4556/Desktop/Master/MasterClonalityD299.csv"
+          file_output <- paste(File_path,"clonality.txt", sep = "")
           write.csv(data_compiled_table, file=file_output)
