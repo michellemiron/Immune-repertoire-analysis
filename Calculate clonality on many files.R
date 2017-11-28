@@ -5,6 +5,7 @@
                     # TCR files are .txt files 
 
 #These are the functions used to calculate Clonality
+rm(list=ls())
 options(stringsAsFactors=FALSE)
 
           normalize <- function(data) {
@@ -21,7 +22,8 @@ options(stringsAsFactors=FALSE)
   p.norm <- p[p>0]/sum(p)
   -sum(log2(p.norm)*p.norm)
 }
-          Clonality <- function(p) {
+ 
+         Clonality <- function(p) {
   x = p[p>0] / sum(p)
   l = length(x)
   entropy = shannon.entropy(p)
@@ -29,6 +31,34 @@ options(stringsAsFactors=FALSE)
   return(signif(1 - entropy / maxentropy, 3)) 
 }
           
+#Simpsons Index
+         
+         calcSI<-function(vals){
+                   vals=vals[vals>0]
+                   fq=vals/sum(vals)
+                   si=sum(fq^2)
+                   return(si)
+         }
+#R20
+         calcr20 = function(X){
+                   X=sort(X,decreasing=T)
+                   X=X[X>0]
+                   CX=cumsum(X)
+                   num=length(which(CX/sum(X)<=0.2))
+                   den=length(X)
+                   return(num/den)
+         }
+#R50
+         calcr50 = function(X){
+                   X=sort(X,decreasing=T)
+                   X=X[X>0]
+                   CX=cumsum(X)
+                   num=length(which(CX/sum(X)<=0.5))
+                   den=length(X)
+                   return(num/den)
+         }
+         
+         
 # Input your path to files here:
            File_path <- "/Users/michellemiron/Desktop/TCR data/All TCR data/All Reps pooled/"
     
@@ -42,14 +72,20 @@ options(stringsAsFactors=FALSE)
                               file_location <- paste(File_path, file, sep = "")
                               all_data<-read.table(file_location, header=T )
                               counts <- all_data[,2]
-                              counts<-as.data.frame(counts)
-                              normalizedcounts <- normalize(counts)
+                              countsdf <-as.data.frame(counts)
+                              normalizedcounts <- normalize(countsdf)
                               entropy <- shannon.entropy(normalizedcounts)
                               clonalitycalc <- Clonality(normalizedcounts)
-                              Output <- data.frame(file,clonalitycalc)
+                              SI <-calcSI(counts)
+                              R20<- calcr20(counts)
+                              R50<- calcr50(counts)
+                              Output <- data.frame(file,clonalitycalc,SI,R20,R50)
                               Output
                      }
 
+                     
+                     
+                     
 # Apply function to all files in a given directory
           data_compiled_list <- lapply(files, outputclonality_data)
           data_compiled_table <- my.matrix<-do.call("rbind", data_compiled_list)
