@@ -5,6 +5,8 @@
                     # TCR files are .txt files 
 
 #These are the functions used to calculate Clonality
+options(stringsAsFactors=FALSE)
+
           normalize <- function(data) {
   nc = ncol(data)
   for (i in 1:nc) {
@@ -28,9 +30,12 @@
 }
           
 # Input your path to files here:
-           File_path <- "/Users/michellemiron/Dropbox/For Michelle/D233/Pooled All Reps/Raw Data/"
+           File_path <- "/Users/michellemiron/Desktop/TCR data/All TCR data/All Reps pooled/"
     
-
+# Get a list of all files in the directory    
+           files <- list.files(path=File_path, pattern="*.txt")
+           file <- files[[1]]
+           
 # Function to calculate clonality on a given file
           # output is dataframe with clonality and file name
                      outputclonality_data <- function(file) {
@@ -44,12 +49,11 @@
                               Output <- data.frame(file,clonalitycalc)
                               Output
                      }
-# Get a list of all files in the directory    
-          files <- list.files(path=File_path, pattern="*.txt")
-          file <- files[[1]]
-          
+
 # Apply function to all files in a given directory
-          data_compiled_list <- lapply (files, outputclonality_data)
+          data_compiled_list <- lapply(files, outputclonality_data)
           data_compiled_table <- my.matrix<-do.call("rbind", data_compiled_list)
+          Path_save = "/Users/michellemiron/Desktop/TCR data/All TCR data/All Reps pooled/results"
           file_output <- paste(File_path,"clonality.txt", sep = "")
           write.csv(data_compiled_table, file=file_output)
+          
