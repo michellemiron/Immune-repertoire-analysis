@@ -79,7 +79,8 @@ options(stringsAsFactors=FALSE)
                               SI <-calcSI(counts)
                               R20<- calcr20(counts)
                               R50<- calcr50(counts)
-                              Output <- data.frame(file,clonalitycalc,SI,R20,R50)
+                              NumberUniqueClones <- nrow(countsdf)
+                              Output <- data.frame(file,clonalitycalc,SI,R20,R50,NumberUniqueClones)
                               Output
                      }
 
@@ -90,6 +91,6 @@ options(stringsAsFactors=FALSE)
           data_compiled_list <- lapply(files, outputclonality_data)
           data_compiled_table <- my.matrix<-do.call("rbind", data_compiled_list)
           Path_save = "/Users/michellemiron/Desktop/TCR data/All TCR data/All Reps pooled/results/"
-          file_output <- paste(Path_save,"clonality_R20_R50_SI.txt", sep = "")
+          file_output <- paste(Path_save,"clonality_R20_R50_SI_CloneNum.txt", sep = "")
           write.csv(data_compiled_table, file=file_output)
           
