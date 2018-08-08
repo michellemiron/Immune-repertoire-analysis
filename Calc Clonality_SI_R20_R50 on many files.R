@@ -3,6 +3,8 @@
            # Input is the directory with the files
            # Output is a list of dataframes with clonality calculations
                     # TCR files are .txt files 
+                        #File is set up so a column is the counts and each row is a different sequence
+                        #only the counts column is needed for these calculations
 
 #These are the functions used to calculate Clonality
 rm(list=ls())
